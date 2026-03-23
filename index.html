@@ -731,33 +731,77 @@
           W6=26-30, W7=31-35, W8=36-40, W9=41-45, W10=46-50,
           W11=51-55, W12=56-60
         -->
-        <!-- Free-canvas task cards: positioned by JS waterfall algorithm -->
-        <!-- DOM order = vertical priority (processed top-to-bottom) -->
+        <!--
+          REWORKED: Deliverable-focused website timeline
+          Today = Mar 23 = col 11 → within Wireframes & Photo Restoration
+
+          Waterfall layout: DOM order = vertical priority
+          Cards sharing columns stack below earlier cards
+
+          Color coding by stage:
+          1 (Red)    = Research / Collection
+          3 (Green)  = Design
+          4 (Yellow) = Client Approval
+          5 (Blue)   = Development
+          6 (Cyan)   = Content / Production
+          7 (Pink)   = Testing / QA
+          8 (Purple) = Technical Setup
+          9 (Purple) = Final Delivery
+        -->
         <div class="task-canvas" id="slide2-canvas">
-          <!-- Left-side cards in requested vertical order -->
-          <div class="task-card" data-week="3" data-col="5/17"><span class="task-card-text">Wireframes and interaction flows for all key pages and lifecycle service clusters</span></div>
-          <div class="task-card" data-week="5" data-col="30/47"><span class="task-card-text">Development of responsive high-performance frontend using Next.js and Tailwind</span></div>
-          <div class="task-card" data-week="1" data-col="30/46"><span class="task-card-text">Alignment with lifecycle storytelling structure</span></div>
-          <div class="task-card" data-week="3" data-col="16/32"><span class="task-card-text">Visual design exploration aligned with Optima's brand evolution and authority positioning</span></div>
-          <div class="task-card" data-week="4" data-col="30/34"><span class="task-card-text">Final UI approval and preparation of animation, interaction and design system assets</span></div>
-          <div class="task-card" data-week="7" data-col="1/9"><span class="task-card-text">Definition of website architecture, content priorities and user journeys</span></div>
-          <div class="task-card" data-week="1" data-col="1/16"><span class="task-card-text">Collection and processing of historical photography and video archive</span></div>
-          <div class="task-card" data-week="1" data-col="1/16"><span class="task-card-text">Audit of existing material, historical archive and service documentation</span></div>
-          <div class="task-card" data-week="8" data-col="8/23"><span class="task-card-text">AI restoration including upscaling, stabilization and color enhancement</span></div>
-          <!-- Right-side cards (cols 32+) -->
-          <div class="task-card" data-week="5" data-col="38/47"><span class="task-card-text">Implementation of animation, motion design and interactive storytelling elements</span></div>
-          <div class="task-card" data-week="6" data-col="35/40"><span class="task-card-text">Creation and adaptation of photography, video and service presentation material</span></div>
-          <div class="task-card" data-week="8" data-col="41/47"><span class="task-card-text">Preparation of optimized visual assets for website storytelling integration</span></div>
-          <div class="task-card" data-week="6" data-col="47/53"><span class="task-card-text">Integration of meeting booking entry points and exhibition engagement feature</span></div>
-          <div class="task-card" data-week="5" data-col="41/47"><span class="task-card-text">SEO architecture setup including schema, metadata and structured routing</span></div>
-          <div class="task-card" data-week="2" data-col="47/52"><span class="task-card-text">Testing of event-specific navigation and visitor experience flows</span></div>
-          <div class="task-card" data-week="8" data-col="47/52"><span class="task-card-text">Setup of engagement monitoring for service exploration and booking actions</span></div>
-          <div class="task-card" data-week="6" data-col="42/48"><span class="task-card-text">SEO-friendly content optimization and editorial review</span></div>
-          <div class="task-card" data-week="8" data-col="52/57"><span class="task-card-text">Performance monitoring and optimization configuration</span></div>
-          <div class="task-card" data-week="7" data-col="52/56"><span class="task-card-text">Cross-device and cross-browser testing</span></div>
-          <div class="task-card" data-week="7" data-col="52/56"><span class="task-card-text">Performance, accessibility and interaction testing</span></div>
-          <div class="task-card" data-week="9" data-col="52/57"><span class="task-card-text">Final refinements, deployment and production launch</span></div>
-          <div class="task-card" data-week="8" data-col="42/49"><span class="task-card-text">Implementation of Google Analytics, Microsoft Clarity and event tracking</span></div>
+          <!-- Row 1 — Primary website creation flow -->
+          <div class="task-card" data-week="1" data-col="1/11">
+            <span class="task-card-text">Content Plan</span>
+            <span class="task-card-deliverable">Internal Deliverable: Information Architecture</span>
+          </div>
+          <div class="task-card" data-week="3" data-col="11/23">
+            <span class="task-card-text">Wireframes & UX Design</span>
+            <span class="task-card-deliverable">Deliverable: Approved Wireframes (all pages)</span>
+          </div>
+          <div class="task-card" data-week="3" data-col="28/40">
+            <span class="task-card-text">Visual Design & UI</span>
+            <span class="task-card-deliverable">Deliverable: Design Mockups (Desktop & Mobile)</span>
+          </div>
+          <div class="task-card" data-week="5" data-col="40/56">
+            <span class="task-card-text">Frontend Development</span>
+            <span class="task-card-deliverable">Deliverable: Functional Website</span>
+          </div>
+
+          <!-- Row 2 — Content & media (overlaps with row 1) -->
+          <div class="task-card" data-week="1" data-col="1/12">
+            <span class="task-card-text">Photo & Video Archive Collection</span>
+            <span class="task-card-deliverable">Internal Deliverable: Organized Media Library</span>
+          </div>
+          <div class="task-card" data-week="8" data-col="6/29">
+            <span class="task-card-text">Photo Restoration & AI Enhancement</span>
+            <span class="task-card-deliverable">Deliverable: Restored Photo & Video Archive</span>
+          </div>
+          <div class="task-card" data-week="6" data-col="18/44">
+            <span class="task-card-text">Copywriting & SEO</span>
+            <span class="task-card-deliverable">Deliverable: Website Copy & SEO Structure</span>
+          </div>
+          <div class="task-card" data-week="7" data-col="46/56">
+            <span class="task-card-text">QA & Performance Testing</span>
+            <span class="task-card-deliverable">Internal Deliverable: QA Report</span>
+          </div>
+
+          <!-- Row 3 — Approvals, analytics, launch -->
+          <div class="task-card" data-week="4" data-col="27/30">
+            <span class="task-card-text">Client UX Approval</span>
+            <span class="task-card-deliverable">Deliverable: Approved Wireframes</span>
+          </div>
+          <div class="task-card" data-week="4" data-col="40/43">
+            <span class="task-card-text">Client Design Approval</span>
+            <span class="task-card-deliverable">Deliverable: Approved UI Style</span>
+          </div>
+          <div class="task-card" data-week="8" data-col="51/56">
+            <span class="task-card-text">Analytics & Tracking Setup</span>
+            <span class="task-card-deliverable">Deliverable: Google Analytics / Search Console setup</span>
+          </div>
+          <div class="task-card task-card--future" data-week="9" data-col="56/61">
+            <span class="task-card-text">Go-Live & Deployment</span>
+            <span class="task-card-deliverable">Deliverable: Live Website</span>
+          </div>
         </div>
 
       </div>
