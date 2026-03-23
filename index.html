@@ -1244,7 +1244,7 @@
         if (heightMap[c] > maxY) maxY = heightMap[c];
       }
       el.style.top = maxY + 'px';
-      const h = el.getBoundingClientRect().height;
+      const h = el.offsetHeight;
       const newBottom = maxY + h + gap;
       for (let c = start; c < end; c++) {
         heightMap[c] = newBottom;
@@ -1276,6 +1276,10 @@
   window.addEventListener('load', () => {
     waterfallLayout();
     setTimeout(waterfallLayout, 200);
+    setTimeout(waterfallLayout, 500);
+  });
+  window.addEventListener('resize', () => {
+    waterfallLayout();
   });
 </script>
 
