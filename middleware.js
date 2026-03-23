@@ -1,11 +1,15 @@
+import { next } from '@vercel/edge';
+
 export const config = {
   matcher: ['/((?!api|_vercel|favicon).*)'],
 };
 
 export default function middleware(request) {
-  const authCookie = request.cookies.get('site_auth');
-  if (authCookie && authCookie.value === 'authenticated') {
-    return;
+  const cookie = request.headers.get('cookie') || '';
+  const hasAuth = cookie.split(';').some(c => c.trim().startsWith('site_auth=authenticated'));
+
+  if (hasAuth) {
+    return next();
   }
 
   return new Response(loginHTML, {
