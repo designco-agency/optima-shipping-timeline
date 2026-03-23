@@ -773,8 +773,34 @@
           <span class="week-label">May 4</span>
         </div>
 
-        <!-- Empty task canvas — blocks to be added later -->
-        <div class="task-canvas" id="slide4-canvas" style="min-height: 400px;">
+        <!--
+          Booth Experience timeline task grid — 45 cols, 9 weeks × 5 weekdays
+          W1=1-5, W2=6-10, W3=11-15, W4=16-20, W5=21-25,
+          W6=26-30, W7=31-35, W8=36-40, W9=41-45
+        -->
+        <div class="task-canvas" id="slide4-canvas">
+          <!-- Row 1 priority (top cards, left to right) -->
+          <div class="task-card" data-week="1" data-col="1/8"><span class="task-card-text">Definition of Command Center experience concept and interactive engagement objectives</span></div>
+          <div class="task-card" data-week="3" data-col="8/22"><span class="task-card-text">Design of touchscreen navigation structure and module interaction flows</span></div>
+          <div class="task-card" data-week="6" data-col="22/37"><span class="task-card-text">Development of interactive frontend environment optimized for touchscreen devices</span></div>
+          <div class="task-card" data-week="5" data-col="31/41"><span class="task-card-text">Integration of video, case studies, diagrams and visualization assets into modules</span></div>
+          <div class="task-card" data-week="5" data-col="37/41"><span class="task-card-text">Alignment with booth constructor</span></div>
+          <div class="task-card" data-week="8" data-col="41/46"><span class="task-card-text">Stress testing for high visitor interaction scenarios</span></div>
+          <!-- Row 2 priority -->
+          <div class="task-card" data-week="3" data-col="11/26"><span class="task-card-text">Development of wireframes and user interface logic for interactive modules</span></div>
+          <div class="task-card" data-week="6" data-col="26/37"><span class="task-card-text">Implementation of module-based architecture and real-time interaction rendering</span></div>
+          <div class="task-card" data-week="5" data-col="33/41"><span class="task-card-text">Configuration of multi-screen synchronization and interaction triggers</span></div>
+          <div class="task-card" data-week="8" data-col="38/44"><span class="task-card-text">Configuration of local runtime environment and device synchronization</span></div>
+          <div class="task-card" data-week="7" data-col="42/46"><span class="task-card-text">Performance optimization and interaction fine-tuning</span></div>
+          <!-- Row 3 priority -->
+          <div class="task-card" data-week="1" data-col="1/8"><span class="task-card-text">Selection and specification of interactive modules (repair explorer, lifecycle explorer, operational visualization, etc.)</span></div>
+          <div class="task-card" data-week="4" data-col="16/26"><span class="task-card-text">Approval of interaction scenarios and experience usability structure</span></div>
+          <div class="task-card" data-week="6" data-col="26/36"><span class="task-card-text">Integration of motion, animation and visualization components</span></div>
+          <div class="task-card" data-week="5" data-col="36/42"><span class="task-card-text">Preparation of fallback playback and operational continuity modes</span></div>
+          <div class="task-card" data-week="8" data-col="39/44"><span class="task-card-text">Installation preparation and technical compatibility validation</span></div>
+          <div class="task-card" data-week="9" data-col="43/46"><span class="task-card-text">Finalization, deployment and installation support</span></div>
+          <!-- Row 4 priority -->
+          <div class="task-card" data-week="1" data-col="1/6"><span class="task-card-text">Alignment with exhibition storytelling and content strategy</span></div>
         </div>
 
       </div>
@@ -836,22 +862,21 @@
     if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goSlide(-1);
   });
 
-  // ── Slide 2: Waterfall / masonry layout ──
+  // ── Waterfall / masonry layout (generic) ──
   // Each card is positioned absolutely. Horizontal = percentage from
   // column data. Vertical = waterfall algorithm (each card floats up
   // to the highest available spot in its column range).
-  function waterfallLayout() {
-    const canvas = document.getElementById('slide2-canvas');
+  function layoutCanvas(canvasId, totalCols) {
+    const canvas = document.getElementById(canvasId);
     if (!canvas) return;
-    const slide2 = canvas.closest('.slide');
-    const totalCols = 60;
+    const slide = canvas.closest('.slide');
     const gap = 20;
 
-    // Temporarily show slide 2 for measurement
-    const wasHidden = !slide2.classList.contains('active');
+    // Temporarily show slide for measurement
+    const wasHidden = !slide.classList.contains('active');
     if (wasHidden) {
-      slide2.style.visibility = 'hidden';
-      slide2.style.display = 'flex';
+      slide.style.visibility = 'hidden';
+      slide.style.display = 'flex';
     }
 
     const cards = Array.from(canvas.querySelectorAll('.task-card'));
@@ -873,42 +898,36 @@
 
     // Process cards in DOM order (which preserves row priority)
     cardData.forEach(({ el, start, end }) => {
-      // Find highest bottom-Y across this card's column span
       let maxY = 0;
       for (let c = start; c < end; c++) {
         if (heightMap[c] > maxY) maxY = heightMap[c];
       }
-
-      // Place card
       el.style.top = maxY + 'px';
-
-      // Measure rendered height
       const h = el.getBoundingClientRect().height;
-
-      // Update height map
       const newBottom = maxY + h + gap;
       for (let c = start; c < end; c++) {
         heightMap[c] = newBottom;
       }
     });
 
-    // Set canvas height to tallest column
     canvas.style.height = Math.max(...heightMap) + 'px';
 
-    // Restore
     if (wasHidden) {
-      slide2.style.display = '';
-      slide2.style.visibility = '';
+      slide.style.display = '';
+      slide.style.visibility = '';
     }
+  }
+
+  function waterfallLayout() {
+    layoutCanvas('slide2-canvas', 60);
+    layoutCanvas('slide4-canvas', 45);
   }
 
   // Run multiple times to catch font loading & reflow
   document.fonts.ready.then(() => {
     waterfallLayout();
-    // Re-run after a tick to catch any late reflows
     requestAnimationFrame(() => {
       waterfallLayout();
-      // Final safety pass
       requestAnimationFrame(waterfallLayout);
     });
   });
