@@ -1,5 +1,3 @@
-import { next } from '@vercel/edge';
-
 export const config = {
   matcher: ['/((?!api|_vercel|favicon).*)'],
 };
@@ -9,7 +7,9 @@ export default function middleware(request) {
   const hasAuth = cookie.split(';').some(c => c.trim().startsWith('site_auth=authenticated'));
 
   if (hasAuth) {
-    return next();
+    return new Response(null, {
+      headers: { 'x-middleware-next': '1' },
+    });
   }
 
   return new Response(loginHTML, {
